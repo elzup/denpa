@@ -1,7 +1,6 @@
 <?php
 
 
-
 /* --------------------------------------------------------- *
  *     html builder functions
 * --------------------------------------------------------- */
@@ -21,63 +20,23 @@ function htmlRadio($element){
 rad;
 }
 
-function htmlCalendarPulldown(){
-    echo $cal=<<<cal
-<select name="year" id="year">
-  <option value="2010" selected="selected">2010</option>
-  <option value="2011">2011</option>
-  <option value="2012">2012</option>
-</select><label for="year">年</label>
-<select name="month" id="month">
-  <option value="01" selected="selected">1</option>
-  <option value="02">2</option>
-  <option value="03">3</option>
-  <option value="04">4</option>
-  <option value="05">5</option>
-  <option value="06">6</option>
-  <option value="07">7</option>
-  <option value="08">8</option>
-  <option value="09">9</option>
-  <option value="10">10</option>
-  <option value="11">11</option>
-  <option value="12">12</option>
-</select><label for="month">月</label>
-<select name="day" id="day">
-  <option value="01" selected="selected">1</option>
-  <option value="02">2</option>
-  <option value="03">3</option>
-  <option value="04">4</option>
-  <option value="05">5</option>
-  <option value="06">6</option>
-  <option value="07">7</option>
-  <option value="08">8</option>
-  <option value="09">9</option>
-  <option value="10">10</option>
-  <option value="11">11</option>
-  <option value="12">12</option>
-  <option value="13">13</option>
-  <option value="14">14</option>
-  <option value="15">15</option>
-  <option value="16">16</option>
-  <option value="17">17</option>
-  <option value="18">18</option>
-  <option value="19">19</option>
-  <option value="20">20</option>
-  <option value="21">21</option>
-  <option value="22">22</option>
-  <option value="23">23</option>
-  <option value="24">24</option>
-  <option value="25">25</option>
-  <option value="26">26</option>
-  <option value="27">27</option>
-  <option value="28">28</option>
-  <option value="29">29</option>
-  <option value="30">30</option>
-  <option value="31">31</option>
+function htmlCalendarPulldown($yt = 2010, $mt = 1, $dt = 1){
+    echo '<select name="year" id="year">';
+    for ($y = 2010; $y <= 2013; $y++)
+        echo '\t<option value="'.$y.'"'.(($y == $yt) ? 'selected="selected"':'').'>'.$y.'</option>';
+    echo '</select><label for="year">年</label>\n';
+    echo '<select name="month" id="month">\n';
+    for ($m = 1; $m <= 12; $m++)
+        echo '\t<option value="'.sprintf('%02d', $m).'"'.(($m == $mt)? ' selected="selected"': '').'>'.$m.'</option>';
+    echo '</select><label for="month">月</label>\n';
+    echo '<select name="day" id="day">\n';
+    for ($d = 1; $d <= 31; $d++)
+        echo '\t<option value="'.sprintf('%02d', $d).'"'.(($d == $dt)? ' selected="selected"':"").'>'.$d.'</option>';
+    echo $e =<<<EOF
 </select><label for="day">日</label>
 </p>
 <p><input type="submit" /></p>
-cal;
+EOF;
 }
 
 function htmlPrefecturesPulldwon($selected){
@@ -135,24 +94,30 @@ HSCB;
 function htmlHeader($me, $root, $title, $message = null){
     //<link type="text/css" rel="stylesheet" href="$root././style.css">
 //    $lessType = $me->get_less;
-    $lessType = get_class($me) == 'User' ?  DEF_LESS : DEF_LESS;
+    $lessType = ((isset($me) && get_class($me) )== 'User' ?  DEF_LESS : DEF_LESS);
     echo $head =<<<head
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>$title - DENPA</title>
 <link href='http://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css" />
-<link rel="stylesheet/less" type="text/css" charset="UTF-8" href="{$root}/style/{$lessType}/style.less">
+<link rel="stylesheet" charset="UTF-8" href="{$root}./lib/bootstrap/css/bootstrap.min.css" media="screen" />
+
+<!--link rel="stylesheet/less" type="text/css" charset="UTF-8" href="{$root}/style/{$lessType}/style.less" media="screen" -->
 <script src="{$root}./lib/less-1.3.3.min.js" type="text/javascript"></script>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script src="{$root}./lib/jquery.jstree.js"></script>
 <script src="{$root}./lib/jquery.waypoints.min.js"></script>
 <script src="{$root}./lib/jquery.waypoints-sticky.min.js"></script>
 <script src="{$root}./lib/footerFixed.js"></script>
 <script src="{$root}./js/header_script.js" charset="UTF-8" type="text/javascript"></script>
+
+<script src="{$root}./lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
 
 </head>
 head;
