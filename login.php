@@ -87,7 +87,7 @@ else{
               <input type="submit" value="ログイン">
             </div>
             <div class="regist-div">
-              <a href="signup_pre">新規登録</a>
+              <a href="signup_pre<?=TAIL?>">新規登録</a>
             </div>
           </form>
         </div>

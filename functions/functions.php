@@ -27,10 +27,10 @@ function jump($s, $parameter = array()){
             $get_text .= "&";
         }
         $get_text = substr($get_text, 0, -1);
-        header('Location: '.SITE_URL.$s.$get_text);
+        header('Location: '.SITE_URL.TAIL.$s.$get_text);
         exit;
     }else{
-        header('Location: '.SITE_URL.$s);
+        header('Location: '.SITE_URL.TAIL.$s);
         exit;
     }
 }

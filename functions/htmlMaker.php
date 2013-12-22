@@ -160,6 +160,7 @@ scripts;
 function htmlHeaderLink($me, $login=false){
     $mypage_link = "";
     $login_link = "";
+    $tail = TAIL;
     if(!empty($login)){
 //        $mypage_link = "<span class=\"string\"><a href=\"".SITE_URL."my"."\">".$me->nick_name."</a></span>";
 //        $login_link = "<span class=\"string\"><a href=\"logout\">Logout</a></span>";
@@ -167,11 +168,11 @@ function htmlHeaderLink($me, $login=false){
 <div id="header" class="sticky">
     <span><a id="header-logo" href="./">DENPA</a></span>
     <div id="header-menu">
-    	<div title="マイページ" id="menu-home"><a href="my">link</a></div>
+    	<div title="マイページ" id="menu-home"><a href="my{$tail}">link</a></div>
     	<div title="カレンダー" id="menu-calender"></div>
     	<div title="作成" id="menu-create"></div>
     	<div title="設定" id="menu-setting"></div>
-    	<div title="ログアウト" id="menu-logout"><a href="logout">link</a></div>
+    	<div title="ログアウト" id="menu-logout"><a href="logout{$tail}">link</a></div>
     </div>
 </div>
 header;
@@ -182,7 +183,7 @@ header;
 <div id="header" class="sticky">
     <span><a id="header-logo" href="./">DENPA</a></span>
     <div id="header-menu" style="width:50px">
-    	<div title="ログイン" id="menu-login"><a href="login">link</a></div>
+    	<div title="ログイン" id="menu-login"><a href="login{$tail}">link</a></div>
     </div>
 </div>
 header2;
@@ -249,7 +250,7 @@ function htmlContentsTree(User $user) {
     $user->set_knots();
     $html = "<ul><li><a href=\"#\">ノット</a><ul class=\"cal_tree_li\">";
     foreach($user->knots as $k) {
-        $html .= "<li><a href=\"knot?id={$k->id}\">{$k->name}</a></li>";
+        $html .= "<li><a href=\"knot{$tail}?id={$k->id}\">{$k->name}</a></li>";
     }
     $html .= "</ul></li><li><a href=\"#\">クラス</a><ul class=\"cal_tree_li\">";
 
