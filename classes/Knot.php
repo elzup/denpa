@@ -32,12 +32,6 @@ class Knot {
         $this->psheet_params;
     }
 
-    public function getPsheet() {
-        return (empty($this->psheet_params)) ?
-        $this->psheet_params = getPsheet($this->id) :
-        $this->psheet_params;
-    }
-
     public function getArrayParams() {
         $parameter                = array();
         $parameter['id']          = $this->id;

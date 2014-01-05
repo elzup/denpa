@@ -35,7 +35,6 @@ function jump($s, $parameter = array()){
     }
 }
 
-
 function setupEncodeing(){
     $charset="utf8";
     header('Content-type:text/html; charset=utf-8');
