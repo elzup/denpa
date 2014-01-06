@@ -63,7 +63,7 @@ function getCategoryTree() {
 
 function saveRef() {
     $ref = $_SERVER['HTTP_REFERER'];
-    preg_match('/[^/]*$/', $ref, $matches);
+    preg_match('#[^/]*$#', $ref, $matches);
     $_SESSION['ref'] = $matches[0];
 }
 
