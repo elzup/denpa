@@ -4,7 +4,6 @@
  *     Setup motional and Connection function
 * --------------------------------------------------------- */
 
-
 function connectDb(){
     global $dbo;
     mb_language("uni");
@@ -16,7 +15,6 @@ function connectDb(){
     $dbo = new DB(DSN, DB_USER, DB_PASS);
     $dbo->selectDb(DB_NAME);
 }
-
 
 function jump($s, $parameter = array()){
     if(!empty($parameter)){
