@@ -123,6 +123,7 @@ function get_me(){
     $me = $_SESSION['me'];
     if(!empty($me)) {
         $me = unserialize($me);
+        print_r($me);
         return $me->getReload();
     }
     return false;
@@ -207,8 +208,6 @@ function sendRegistMail($id, $reg_key){
 
 function getUser($name , $password='', $shaed=false, $compact = false) {
     global $dbo;
-    echo "<pre>";
-    print_r($dbo);
     if($password == '') {
         $idTemp = convertIdToNum($name);
         $recos = $dbo->getTable('denpa_user', null, array('id' => $idTemp), 1);

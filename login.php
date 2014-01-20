@@ -6,7 +6,6 @@ session_start();
 $dir_root = "./";
 $page_name = "ログイン";
 
-
 //check the state logining
 if (!empty($_SESSION['me'])){
 	//if logined move top page
@@ -24,10 +23,9 @@ $password = $_COOKIE['pass'];
 
 
 
-if ($_SERVER['REQUEST_METHOD'] != 'POST'){
+if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 	$token=setToken();
-}
-else{
+} else {
 	$token=checkToken();
 
 	$name = $_POST['name'];
