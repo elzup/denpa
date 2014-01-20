@@ -1,6 +1,9 @@
 <?php
 
 require_once('config.php');
+
+require_once(DIR_LIB. 'twitteroauth.php');
+
 require_once(DIR_FUNCS. 'functions.php');
 require_once(DIR_FUNCS. 'htmlMaker.php');
 require_once(DIR_FUNCS. 'convert.php');
