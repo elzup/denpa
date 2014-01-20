@@ -94,7 +94,7 @@ HSCB;
 function htmlHeader($me, $root, $title, $message = null){
     //<link type="text/css" rel="stylesheet" href="$root././style.css">
 //    $lessType = $me->get_less;
-    $lessType = ((isset($me) && get_class($me) )== 'User' ?  DEF_LESS : DEF_LESS);
+    $lessType = ((isset($me) && (get_class($me) == 'User')) ?  DEF_LESS : DEF_LESS);
     echo $head =<<<head
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="ja">

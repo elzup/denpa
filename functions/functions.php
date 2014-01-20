@@ -5,15 +5,15 @@
 * --------------------------------------------------------- */
 
 function connectDb(){
-    global $dbo;
+
     mb_language("uni");
     mb_internal_encoding("UTF-8");
     mb_http_input("auto");
     mb_http_output("utf-8");
 
-    //    $dbo->$link = mysqli_connect(DSN, DB_USER, DB_PASS);
+    //    DB::$link = mysqli_connect(DSN, DB_USER, DB_PASS);
     $dbo = new DB(DSN, DB_USER, DB_PASS);
-    $dbo->selectDb(DB_NAME);
+    DB::selectDb(DB_NAME);
 }
 
 function jump($s, $parameter = array()){
@@ -123,7 +123,6 @@ function get_me(){
     $me = $_SESSION['me'];
     if(!empty($me)) {
         $me = unserialize($me);
-        print_r($me);
         return $me->getReload();
     }
     return false;
@@ -142,14 +141,14 @@ function get_me(){
 function registUserFirst($parameter){
     $parameter['id'] = convertIdTonum($id);
     $parameter['password'] = hashing($parameter['password']);
-    $reg_id = $dbo->getMinEmptyId("denpa_user", "number");
+    $reg_id = DB::getMinEmptyId("denpa_user", "number");
     $parameter['number'] = $reg_id;
     $parameter['mail'] = 'NULL';
     $parameter['point'] = '10000';
     $parameter['time_register'] = 'NOW()';
     $parameter['register_process'] = 'NOW()';
 
-    $result = $dbo->insert('denpa_user', $parameter);
+    $result = DB::insert('denpa_user', $parameter);
 }
 
 /*
@@ -183,10 +182,10 @@ function registTempUser($name, $reg_key){
     $parameter = array('time_register' => 'NOW()', 'ticket' => $reg_key);
     if(isRegisteredTempUser($name) == 1){
         $condition = array('id' => $id);
-        $result = $dbo->update($table_name = 'denpa_user_temp', $parameter, $condition, 1);
+        $result = DB::update($table_name = 'denpa_user_temp', $parameter, $condition, 1);
     }
     else{
-        $result = $dbo->insert($table_name = 'denpa_user_temp', $parameter);
+        $result = DB::insert($table_name = 'denpa_user_temp', $parameter);
     }
     return !!$result;
 }
@@ -207,20 +206,20 @@ function sendRegistMail($id, $reg_key){
 }
 
 function getUser($name , $password='', $shaed=false, $compact = false) {
-    global $dbo;
+
     if($password == '') {
         $idTemp = convertIdToNum($name);
-        $recos = $dbo->getTable('denpa_user', null, array('id' => $idTemp), 1);
+        $recos = DB::getTable('denpa_user', null, array('id' => $idTemp), 1);
         $user_data = $recos[0];
     } else {
         if(!$shaed)$password=hashing($password);
         $recos = array();
         if(isTypeId($name)){
             $idTemp=convertIdToNum($name);
-            $recos = $dbo->getTable('denpa_user', null, array('id' => $idTemp, 'password' => $password), 1);
+            $recos = DB::getTable('denpa_user', null, array('id' => $idTemp, 'password' => $password), 1);
         }
         else{
-            $recos = $dbo->getTable('denpa_user', null, array('id_screen' => $name, 'password' => $password), 1);
+            $recos = DB::getTable('denpa_user', null, array('id_screen' => $name, 'password' => $password), 1);
             //            $sql = "select * from denpa_user where id_screen= $name and password= $password limit 1";
         }
         $user_data = $recos[0];
@@ -232,26 +231,25 @@ function getUser($name , $password='', $shaed=false, $compact = false) {
 }
 
 function isRegisteredTempUser($id){
-    global $dbo;
     $idTemp = convertIdToNum($id);
     $condition = array('id' => $idTemp);
-    $recos = $dbo->getTable($table_name = 'denpa_user_temp', null, $condition, 1);
+    $recos = DB::getTable($table_name = 'denpa_user_temp', null, $condition, 1);
     $user = $recos[0];
     if(!$user)return false;
     $registTimer=strtotime($user['time_register']);
     if(time()<strtotime("+2 day", $registTimer)) {
         return $user;
     }else{
-        $result = $dbo->delete($table_name = 'denpa_user_temp', $condition);
+        $result = DB::delete($table_name = 'denpa_user_temp', $condition);
         return 1;
     }
 }
 
 function registKnot($parameter, $psheet_param) {
     foreach ($parameter as &$p) $p = is_sql($p);
-    $reg_id = $dbo->getMinEmptyId("denpa_knot", "id_knot");
+    $reg_id = DB::getMinEmptyId("denpa_knot", "id_knot");
     $parameter['id_knot'] = $reg_id;
-    $result = $dbo->insert($table_name = 'denpa_knot', $parameter);
+    $result = DB::insert($table_name = 'denpa_knot', $parameter);
     if($result) {
         $reg_id = $table_data['Auto_increment'] - 1;
         if(!empty($psheet_param['param_1'])) {
@@ -275,7 +273,7 @@ function updateKnot(Knot $knot, $parameter, $psheet_param) {
     }
     if(!empty($parameter)) {
         $condition = array ('id_knot' => $knot->id);
-        $dbo->update($table_name = 'denpa_knot', $parameter, $condition, 1);
+        DB::update($table_name = 'denpa_knot', $parameter, $condition, 1);
     }
     if(!empty($psheet_param))updatePsheet($knot, $psheet_param);
     return (empty($err)) ? true: $err;
@@ -283,7 +281,7 @@ function updateKnot(Knot $knot, $parameter, $psheet_param) {
 
 
 function registPsheet($id_knot, $parameter) {
-    return $result = $dbo->insert($table_name = 'denpa_psheet', $parameter);
+    return $result = DB::insert($table_name = 'denpa_psheet', $parameter);
 }
 
 function updatePsheet(Knot $knot, $parameter) {
@@ -298,18 +296,18 @@ function updatePsheet(Knot $knot, $parameter) {
     }
     if(!empty($parameter)) {
         $condition = array('id_knot' => $knot->id);
-        $result = $dbo->update($table_name = 'denpa_psheet', $parameter, $condition);
+        $result = DB::update($table_name = 'denpa_psheet', $parameter, $condition);
         return $result;
     }
     return false;
 }
 
 function registLecture($parameter) {
-    $reg_id = $dbo->getMinEmptyId("denpa_knot_lecture", "id_lecture");
+    $reg_id = DB::getMinEmptyId("denpa_knot_lecture", "id_lecture");
     $parameter['id_lecture'] = $reg_id;
     //    print_r($parameter);
     //    exit;
-    $result = $dbo->insert($table_name = 'denpa_knot_lecture', $parameter);
+    $result = DB::insert($table_name = 'denpa_knot_lecture', $parameter);
     return empty($result) ? false : $reg_id;
 }
 
@@ -323,7 +321,7 @@ function updateLecture (Lecture $lecture, $parameter) {
     }
     if(!empty($parameter)) {
         $condition = array('id_lecture' => $lecture->id);
-        $result = $dbo->update($table_name = 'denpa_knot_lecture', $parameter, $condition);
+        $result = DB::update($table_name = 'denpa_knot_lecture', $parameter, $condition);
     } else {
         $err = "変更点がありません";
     }
@@ -332,7 +330,7 @@ function updateLecture (Lecture $lecture, $parameter) {
 
 function registClass($parameter) {
     foreach ($parameter as &$p) $p = is_sql($p);
-    $reg_id = $dbo->getMinEmptyId("denpa_knot_class", "id_class");
+    $reg_id = DB::getMinEmptyId("denpa_knot_class", "id_class");
     $parameter['id_class'] = $reg_id;
 
 
@@ -341,7 +339,7 @@ function registClass($parameter) {
     //             $parameter['root'], $parameter['schedule'], $parameter['room'], $parameter['teacher'],
     //             $parameter['limit'], $parameter['textbook'], $parameter['measurement'], $parameter['prepare']);
     //     $result = mysql_query($sql)or die("ERROR::".mysql_error()."\n$sql");
-    $result = $dbo->insert($table_name = 'denpa_knot_class', $parameter);
+    $result = DB::insert($table_name = 'denpa_knot_class', $parameter);
     if($result) {
         return $reg_id;
     }
@@ -359,7 +357,7 @@ function updateClass (LClass $class, $parameter) {
     }
     if(!empty($parameter)) {
         $condition = array ('id_class' => $class->id);
-        $result = $dbo->update($table_name = 'denpa_knot_class', $parameter, $condition);
+        $result = DB::update($table_name = 'denpa_knot_class', $parameter, $condition);
     } else {
         $err = '変更点がありません';
     }
@@ -372,7 +370,7 @@ function attendClass(User $user, LClass $class) {
             'id_class'   => $class->id,
             //            'time_register' => 'NOW()',
     );
-    return $result = $dbo->insert($table_name = 'denpa_attend_class', $parameter);
+    return $result = DB::insert($table_name = 'denpa_attend_class', $parameter);
 }
 
 function checkAttend(User $user, LClass $class, &$matched = null){
@@ -399,7 +397,7 @@ function attendKnot(User $user, Knot $knot, $private) {
             'id_knot'    => $knot->id,
             'private'    => $private,
     );
-    return $result = $dbo->insert($table_name = 'denpa_attend_knot', $parameter);
+    return $result = DB::insert($table_name = 'denpa_attend_knot', $parameter);
 }
 
 
@@ -407,36 +405,32 @@ function attendKnot(User $user, Knot $knot, $private) {
 
 
 function getLecture($id, $compact = false) {
-    global $dbo;
     //    if(!is_int($id))return false;
     $condition = array ('id_lecture' => $id);
-    $recos = $dbo->getRow($table_name = 'denpa_knot_lecture', $condition, 1);
+    $recos = DB::getRow($table_name = 'denpa_knot_lecture', $condition, 1);
     $lecture_data = $recos[0];
     return empty($lecture_data) ? false : new Lecture($lecture_data, $compact);
 }
 
 function getClass($id, $compact = false) {
-    global $dbo;
     //    if(!is_int($id))return false;
     $condition = array('id_class' => $id);
-    $recos = $dbo->getRow($table_name = 'denpa_knot_class', $condition, 1);
+    $recos = DB::getRow($table_name = 'denpa_knot_class', $condition, 1);
     $class_data = $recos[0];
     return empty($class_data) ? false : new LClass($class_data, $compact);
 }
 
 function getKnot($id, $compact = false) {
-    global $dbo;
     $condition = array('id_knot' => $id);
-    $recos = $dbo->getRow($table_name = 'denpa_knot', $condition, 1);
+    $recos = DB::getRow($table_name = 'denpa_knot', $condition, 1);
     $knot_data = $recos[0];
     return empty($knot_data) ? false : new Knot($knot_data, $compact);
 }
 
 
 function getPsheet($id_knot, $id_student = 0) {
-    global $dbo;
     $condition = array('id_knot' => $id_knot, 'id_student' => $id_student);
-    $row = $dbo->getRow($table_name = 'denpa_psheet', $condition, $limit);
+    $row = DB::getRow($table_name = 'denpa_psheet', $condition, $limit);
     unset($row['id_knot']);
     unset($row['id_student']);
     return empty($row) ? false : $row;
