@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>Twitter post</title>
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<style type="text/css">
+body {
+text-align: center;
+}
+</style>
+</head>
+<body>
+
+  <h1>キャラ診断</h1>
+  <p>
+    <input type="text" id="name" />
+  </p>
+  <p>
+    <input type="button" id="shindan" value="診断!" />
+  </p>
+  <h2>診断結果</h2>
+  <p id="result">こちらに結果が表示されます</p>
+  <div id="tweet"></div>
+
+  <script>
+  $('#shindan').click(function () {
+	 var name = $('#name').val();
+	 if (name == '') {
+		 alert('名前を入力してください！');
+		 return false;
+	 }
+	 var types = '勇者,魔法使い,戦士,遊び人,スーパースター'.split(",");
+	 var type = types[Math.floor(Math.random() * types.length)];
+	 var chars= 'かっこいい,賢い,だらしない,情けない,優しい'.split(",");
+	 var chart= chars[Math.floor(Math.random() * types.length)];
+	 var result = name + "さんは「" + chart+ type + "」タイプです！";
+	 $('#result').text(result);
+	 var url = 'http%3a%2f%2fwww%2egoogle%2ecom'
+	 var tweetLink = '<a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(result) + 'test&url=' + url + '">ツイートする</a>';
+	 $('#tweet').html(tweetLink);
+  });
+
+		</script>
+
+</body>
+</html>
