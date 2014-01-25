@@ -155,6 +155,8 @@ class User{
         }
         return $this->calendars->getScheduleClassCal($p, $l, $t);
     }
+    
+    
 }
 
 ?>
