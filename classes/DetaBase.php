@@ -5,13 +5,11 @@ class DB {
 
     private static $check = false;
 
+    /*
     public function __construct($dsn, $user, $password) {
-        echo '\n'.$dsn;
-        echo '\n'.$user;
-        echo '\n'.$password;
-        echo '\n';
         DB::$link = mysqli_connect($dsn, $user, $password);
     }
+    */
 
     public static function checkMode($value = true) {
         DB::$check = $value;
@@ -219,6 +217,18 @@ class DB {
 
     public static function toSql($str) {
         return mysqli_real_escape_string(DB::$link, $str);
+    }
+
+
+
+    // ------------------- startup -------------------//
+    public static function connectDb(){
+    	mb_language("uni");
+    	mb_internal_encoding("UTF-8");
+    	mb_http_input("auto");
+    	mb_http_output("utf-8");
+    	$dbo = new DB(DSN, DB_USER, DB_PASS);
+    	DB::selectDb(DB_NAME);
     }
 }
 

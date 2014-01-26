@@ -3,15 +3,42 @@
 
 class Page {
 
-	public $isLogin;
 	public $location;
+	public $name;
+	public $dir_root;
 
 	/* @var $me User */
 	public $me;
 
-	public function __construct() {
+	public function isLogin () {
+		return empty($this->me);
 	}
 
+	public function __construct($name, $dir_root, $isNeedLogin = false) {
+		$this->name = $name;
+		$this->dir_root = $dir_root;
+		$this->setupEncodeing();
+
+		$this->checkLogin();
+		if ($isNeedLogin && $this->isLogin()) {
+
+		}
+	}
+
+	/* --------------------------------------------------------- *
+	 *     setup
+	* --------------------------------------------------------- */
+
+	public function setupEncodeing($charset = "utf8"){
+		header('Content-type:text/html; charset=' . $charset);
+		mb_regex_encoding('UTF-8');
+		if(isset($_GET['pre'])) echo "<pre>";
+		session_start();
+	}
+
+	public function checkLogin () {
+		$this->me = User::getMe();
+	}
 
 	/* --------------------------------------------------------- *
 	 *     wrap info methods
@@ -30,7 +57,6 @@ class Page {
 	public function top () {
 
 	}
-
 
 	public function header () {
 		$login_text = <<< EOF
@@ -71,7 +97,6 @@ EOF;
     </div>
   </nav>
 
-
 EOF;
 	}
 
@@ -94,13 +119,6 @@ EOF;
 
 
 	public function footer () {
-		echo <<<EOF
-
-EOF;
-	}
-
-
-	public function container () {
 		echo <<<EOF
 
 EOF;

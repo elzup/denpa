@@ -1,14 +1,13 @@
 <?php
-
 require_once('require.php');
-setupEncodeing();
-session_start();
-$dir_root = "./";
-$page_name = "mypage";
-connectDb();
 
-$me = get_me();
+$dir_root = "./";
+$name = "mypage";
+$page = new Page($name, $dir_root);
+DB::connectDb();
+
 $login = checkLogin($me, true);
+
 ?>
 
 
