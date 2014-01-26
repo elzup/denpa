@@ -2,6 +2,7 @@
 require_once('require.php');
 $dir_root = "./";
 $name = "mypage";
+/* @var $page Page */
 $page = new Page($name, $dir_root);
 DB::connectDb();
 
@@ -12,9 +13,19 @@ $login = checkLogin($me, true);
 
 
 echo <<<EOF
+<!DOCTYPE html>
+<html lang="ja">
+{$page->head()}
+<body>
+  <div id="wrapper">
+    <div class="container">
+      <div class="raw">
+        {$page->breadcrumb(array('TOP' => './', 'マイページ' => ACTIVE))}
+      </div>
+    </div>
+  </div>
 
-{$page->header()}
-
+</body>
 EOF;
 
 ?>
@@ -58,8 +69,7 @@ $(function() {            //Startup Action
         </div>
         <div id="calendar">
           <div class="top">Calendar</div>
-          <div class="middle">
-          </div>
+          <div class="middle"></div>
           <div class="bottom"></div>
         </div>
 
@@ -133,16 +143,11 @@ $(function() {            //Startup Action
       </div>
       <div id="column-right">
         <div class="column-cms">
-          <div class="cm-a">
-          </div>
-          <div class="cm-u">
-          </div>
-          <div class="cm-u">
-          </div>
-          <div class="cm-l">
-          </div>
-          <div class="cm-l">
-          </div>
+          <div class="cm-a"></div>
+          <div class="cm-u"></div>
+          <div class="cm-u"></div>
+          <div class="cm-l"></div>
+          <div class="cm-l"></div>
         </div>
       </div>
     </div>

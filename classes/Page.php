@@ -59,7 +59,8 @@ class Page {
 		//    $lessType = $me->get_less;
 		$lessType = ((isset($me) && (get_class($me) == 'User')) ?  DEF_LESS : DEF_LESS);
 		$title = $this->name . TITLE_TILE;
-		echo $head =<<<head
+		$main_less_dir = "main.less";
+		echo <<<EOF
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,6 +68,7 @@ class Page {
 <link href='http://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css" />
 <link rel="stylesheet" charset="UTF-8" href="../lib/bootstrap/css/bootstrap.min.css" media="screen" />
+<link rel="stylesheet" href="" charset="UTF-8" type="text/css" media="screen" href="{$main_less_dir}"/>
 <link rel="stylesheet/less" type="text/css" charset="UTF-8" href="../style/elz/style.less" media="screen">
 <script src="../lib/less-1.3.3.min.js" type="text/javascript"></script>
 <!-- script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script-->
@@ -80,9 +82,16 @@ class Page {
 <script src="./lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 {$optionLines}
 </head>
-head;
-		htmlScripts($message);
+EOF;
 	}
+
+	public function breadcrumb(Array $list) {
+		echo '<div id="breadcrumb" class="col-sm-12"><ul class="breadcrumb">';
+		foreach ($list as $text => $href)
+			echo '<li><a href="' . (($href == ACTIVE) ? '#" class=="active' : $href) . '">' . $text . '</a></li>';
+		echo '</ul></div>';
+	}
+
 
 	public function navbar() {
 		$login_text = <<< EOF
