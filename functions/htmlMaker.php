@@ -91,39 +91,6 @@ HSCB;
  * --------------------------------------------------------- */
 
 //include libs
-function htmlHeader($me, $root, $title, $message = null){
-    //<link type="text/css" rel="stylesheet" href="$root././style.css">
-//    $lessType = $me->get_less;
-    $lessType = ((isset($me) && (get_class($me) == 'User')) ?  DEF_LESS : DEF_LESS);
-    echo $head =<<<head
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="ja">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>$title - DENPA</title>
-<link href='http://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet' type='text/css'>
-
-<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css" />
-<link rel="stylesheet" charset="UTF-8" href="{$root}./lib/bootstrap/css/bootstrap.min.css" media="screen" />
-
-<link rel="stylesheet/less" type="text/css" charset="UTF-8" href="{$root}/style/{$lessType}/style.less" media="screen" >
-<script src="{$root}./lib/less-1.3.3.min.js" type="text/javascript"></script>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-<script src="{$root}./lib/jquery.jstree.js"></script>
-<script src="{$root}./lib/jquery.waypoints.min.js"></script>
-<script src="{$root}./lib/jquery.waypoints-sticky.min.js"></script>
-<script src="{$root}./lib/footerFixed.js"></script>
-<script src="{$root}./js/header_script.js" charset="UTF-8" type="text/javascript"></script>
-
-<script src="{$root}./lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-
-
-</head>
-head;
-    htmlScripts($message);
-}
-
 //<script src="$root./lib/jquery-1.9.0.js"></script>
 
 function htmlScripts($message = null) {

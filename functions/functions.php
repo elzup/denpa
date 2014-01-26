@@ -5,7 +5,7 @@
 * --------------------------------------------------------- */
 
 function jump($path, Array $parameter){
-	$url = SITE_RUL . $path. (empty($parameter) ? "" : http_build_query($parameter));
+	$url = $path . "?" . (empty($parameter) ? "" : http_build_query($parameter));
 	header('Location: ' . $url);
 	exit;
 }

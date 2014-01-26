@@ -1,6 +1,5 @@
 <?php
 require_once('require.php');
-
 $dir_root = "./";
 $name = "mypage";
 $page = new Page($name, $dir_root);
@@ -8,10 +7,19 @@ DB::connectDb();
 
 $login = checkLogin($me, true);
 
+
+
+
+
+echo <<<EOF
+
+{$page->header()}
+
+EOF;
+
 ?>
 
 
-<?php htmlHeader($me, $dir_root, $page_name);?>
 <script>
 $(function() {            //Startup Action
     switchSearch('a');

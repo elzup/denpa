@@ -21,7 +21,7 @@ class Page {
 
 		$this->checkLogin();
 		if ($isNeedLogin && $this->isLogin()) {
-
+			jump();
 		}
 	}
 
@@ -54,23 +54,49 @@ class Page {
 	 *     html code methods
 	* --------------------------------------------------------- */
 
-	public function top () {
-
+	public function head ($optionLines = "") {
+		//<link type="text/css" rel="stylesheet" href="$root././style.css">
+		//    $lessType = $me->get_less;
+		$lessType = ((isset($me) && (get_class($me) == 'User')) ?  DEF_LESS : DEF_LESS);
+		$title = $this->name . TITLE_TILE;
+		echo $head =<<<head
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{$title}</title>
+<link href='http://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css" />
+<link rel="stylesheet" charset="UTF-8" href="../lib/bootstrap/css/bootstrap.min.css" media="screen" />
+<link rel="stylesheet/less" type="text/css" charset="UTF-8" href="../style/elz/style.less" media="screen">
+<script src="../lib/less-1.3.3.min.js" type="text/javascript"></script>
+<!-- script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- script src="../lib/jquery.jstree.js"></script-->
+<!--script src="../lib/jquery.waypoints.min.js"></script-->
+<!--script src="../lib/jquery.waypoints-sticky.min.js"></script-->
+<!--script src="../lib/footerFixed.js"></script-->
+<!--script src="../js/header_script.js" charset="UTF-8" type="text/javascript"></script-->
+<script src="./lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+{$optionLines}
+</head>
+head;
+		htmlScripts($message);
 	}
 
-	public function header () {
+	public function navbar() {
 		$login_text = <<< EOF
-
+        <li>
+          <a href="login.php">ログイン</a>
+        </li>
 EOF;
 		if ($this->isLogin) $login_text = <<<EOF
-      <ul class="nav navbar-nav navbar-right">
         <li>
           <a href="my.php">{$me->name}</a>
         </li>
         <li>
           <a href="logout.php">ログアウト</a>
         </li>
-      </ul>
 EOF;
 
 		echo <<<EOF
@@ -93,7 +119,9 @@ EOF;
           <a href="">Link2</a>
         </li>
       </ul-->
+      <ul class="nav navbar-nav navbar-right">
       {$login_text}
+      </ul>
     </div>
   </nav>
 
