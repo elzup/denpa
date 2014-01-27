@@ -26,7 +26,9 @@ class DB {
 
 
     public static function selectDb($name_db) {
-        mysqli_select_db(DB::$link, $name_db) or super_die(array(mysqli_error(DB::$link), $sql, __METHOD__));
+    	echo "<pre>";
+    	print_r(DB::$link);
+        mysqli_select_db(DB::$link, $name_db) or super_die(array(mysqli_error(DB::$link), __METHOD__, $name_db));
     }
 
     public static function isExist($table, $column, $data, $limit = 1){
@@ -222,13 +224,14 @@ class DB {
 
 
     // ------------------- startup -------------------//
-    public static function connectDb(){
+    public static function connectDb($host, $user, $password, $database){
     	mb_language("uni");
     	mb_internal_encoding("UTF-8");
     	mb_http_input("auto");
     	mb_http_output("utf-8");
-    	$dbo = new DB(DSN, DB_USER, DB_PASS);
-    	DB::selectDb(DB_NAME);
+//    	super_die(array ('dsn' => DB_DSN, 'user' => DB_USER, 'pass' => DB_PASS));
+        DB::$link = mysqli_connect($host, $user, $password, $database);
+//    	DB::selectDb(DB_NAME);
     }
 }
 

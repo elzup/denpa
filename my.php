@@ -1,7 +1,7 @@
 <?php
 require_once('require.php');
 $dir_root = "./";
-$name = "mypage";
+$name = "マイページ";
 /* @var $page Page */
 $page = new Page($name, $dir_root);
 DB::connectDb();
@@ -24,7 +24,6 @@ echo <<<EOF
       </div>
     </div>
   </div>
-
 </body>
 EOF;
 

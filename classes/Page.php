@@ -68,8 +68,8 @@ class Page {
 <link href='http://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.0.0/build/cssreset/reset-min.css" />
 <link rel="stylesheet" charset="UTF-8" href="../lib/bootstrap/css/bootstrap.min.css" media="screen" />
-<link rel="stylesheet" href="" charset="UTF-8" type="text/css" media="screen" href="{$main_less_dir}"/>
-<link rel="stylesheet/less" type="text/css" charset="UTF-8" href="../style/elz/style.less" media="screen">
+<link rel="stylesheet" charset="UTF-8" type="text/css" media="screen" href="../style/{$main_less_dir}"/>
+<link rel="stylesheet/less" charset="UTF-8" type="text/css" href="../style/{$lessType}/style.less" media="screen">
 <script src="../lib/less-1.3.3.min.js" type="text/javascript"></script>
 <!-- script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script-->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
