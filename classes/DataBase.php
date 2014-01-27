@@ -56,7 +56,7 @@ class DB {
 			$nums[] = $r[$column_name];
 		sort($nums);
 		$i = 1;
-		while(!empty($nums[$i]) && $nums[$i] == $i)$i++;
+		while (!empty($nums[$i]) && $nums[$i] == $i) $i++;
 		return $i;
 	}
 
@@ -236,6 +236,10 @@ class DB {
 		//    	super_die(array ('dsn' => DB_DSN, 'user' => DB_USER, 'pass' => DB_PASS));
 		$this->link = mysqli_connect($host, $user, $password, $database);
 		//    	DB::selectDb(DB_NAME);
+	}
+
+	public function close() {
+		mysqli_close($this->link) or super_die(array("mysql_error" => mysqli_error($this->link), "Method" => __METHOD__));
 	}
 }
 
