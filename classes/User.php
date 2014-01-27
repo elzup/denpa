@@ -175,6 +175,10 @@ class User{
 		return false;
 	}
 
+	public static function set_me($me){
+		session_regenerate_id(true);
+		$_SESSION['me'] = $me->get_serialize();
+	}
 }
 
 ?>

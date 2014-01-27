@@ -1,22 +1,17 @@
+
 <?php
 require_once('require.php');
 $dir_root = "./";
 $name = "マイページ";
 /* @var $page Page */
-$page = new Page($name, $dir_root);
-DB::connectDb();
-
-$login = checkLogin($me, true);
-
-
-
-
+$page = new Page ($name, $dir_root);
 
 echo <<<EOF
 <!DOCTYPE html>
 <html lang="ja">
 {$page->head()}
 <body>
+  {$page->navbar()}
   <div id="wrapper">
     <div class="container">
       <div class="raw">

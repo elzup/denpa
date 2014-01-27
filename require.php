@@ -13,6 +13,6 @@ require_once(DIR_CLASS. 'Page.php');
 require_once(DIR_CLASS. 'Knot.php');
 require_once(DIR_CLASS. 'Lecture.php');
 require_once(DIR_CLASS. 'Others.php');
-require_once(DIR_CLASS. 'DataBase.php');
+require_once(DIR_CLASS. 'DenpaDB.php');
 
 ?>
