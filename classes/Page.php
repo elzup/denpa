@@ -6,6 +6,8 @@ class Page {
 	public $location;
 	public $name;
 	public $dir_root;
+	/* @var $db DenpaDB */
+	public $db;
 
 	/* @var $me User */
 	public $me;
@@ -18,11 +20,11 @@ class Page {
 		$this->name = $name;
 		$this->dir_root = $dir_root;
 		$this->setupEncodeing();
-
 		$this->checkLogin();
 		if ($isNeedLogin && $this->isLogin()) {
 			jump();
 		}
+		$this->db = new DenpaDB();
 	}
 
 	/* --------------------------------------------------------- *
