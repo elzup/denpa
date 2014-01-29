@@ -84,7 +84,7 @@ return $html;
 
 	public function breadcrumb(Array $list) {
 		$html = "";
-		$html .= '<div id="breadcrumb" class="col-sm-12"><ul class="breadcrumb">';
+		$html .= '<div id="breadcrumb"><ul class="breadcrumb">';
 		foreach ($list as $text => $href)
 			$html .= '<li><a href="' . (($href == ACTIVE) ? '#" class=="active' : $href) . '">' . $text . '</a></li>';
 		$html .= '</ul></div>';
@@ -162,4 +162,50 @@ EOF;
 EOF;
 		return $html;
 	}
+
+	public function createTag ($tagName, array $attribute, $text) {
+
+	}
+
+	/* --------------------------------------------------------- *
+	 *     mypage
+	* --------------------------------------------------------- */
+
+	public function mypage_col_left () {
+		$html = '';
+		$html =<<<EOF
+        <div id="col-left">
+		  {$this->user_box()}
+		</div>
+EOF;
+		return $html;
+	}
+	public function mypage_col_right () {
+		$html = '';
+		$html =<<<EOF
+        <div id="col-right">
+		</div>
+EOF;
+		return $html;
+	}
+
+	public function mypage_row_attention($param) {
+		$html = '';
+		$html =<<<EOF
+          <div class="row-listbox row-my" id="row-attention">
+            <div class="panel panel-primary">
+              <div class="panel-heading">お知らせ</div>
+              <div class="panel-body">
+                <ul>
+                  <li>通知</li>
+                  <li>通知</li>
+                  <li>通知</li>
+                  <li>通知</li>
+                </ul>
+              </div>
+            </div>
+EOF;
+		return $html;
+	}
+
 }

@@ -1,5 +1,23 @@
 
 <?php
+
+
+class Play {
+	private $privateField;
+	public function __construct() {
+		$this->privateField = 100;
+	}
+}
+
+echo '<pre>';
+$p = new Play();
+print_r($p);
+
+echo $p->privateField;
+
+exit;
+
+
 require_once('require.php');
 $dir_root = "./";
 $name = "マイページ";
@@ -15,7 +33,14 @@ echo <<<EOF
   <div id="wrapper">
     <div class="container">
       <div class="raw">
+        <div class="col-sm-12">
         {$page->breadcrumb(array('TOP' => './', 'マイページ' => ACTIVE))}
+        </div>
+        <div class="col-sm-5">
+
+        </div>
+        <div class="col-sm-7">
+        </div>
       </div>
     </div>
   </div>
