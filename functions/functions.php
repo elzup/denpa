@@ -85,12 +85,8 @@ function sendRegistMail($id, $reg_key){
 	//    $mailform =MAIL_FROM;
 	$headers = 'From: '.$mailform;
 	//    $headers = 'From: '.MAIL_FROM;
-
 	$result=mail($to, $subject, $message, $headers);
 }
-
-
-
 
 /* --------------------------------------------------------- *
  *      Calcrater functions
