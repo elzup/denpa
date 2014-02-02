@@ -196,12 +196,7 @@ EOF;
             <div class="panel panel-primary">
               <div class="panel-heading">お知らせ</div>
               <div class="panel-body">
-                <ul>
-                  <li>通知</li>
-                  <li>通知</li>
-                  <li>通知</li>
-                  <li>通知</li>
-                </ul>
+
               </div>
             </div>
 EOF;
